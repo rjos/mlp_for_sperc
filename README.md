@@ -1,3 +1,7 @@
+# Bibliotecas necessárias
+
+As versões das bibliotecas estão no arquivo `requirements.txt`
+
 # Para executar o código
 
 ```
