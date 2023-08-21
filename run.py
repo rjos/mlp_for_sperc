@@ -60,9 +60,10 @@ def run(kwargs, n_processors):
         y = encoder.fit_transform(y)
 
         parameters = {
-            'hidden_layer_sizes': list(itertools.chain.from_iterable([list(product([100, 150, 200], repeat=layer)) for layer in [1, 2, 3]])),
+            'hidden_layer_sizes': list(itertools.chain.from_iterable([list(product([50, 100, 150, 200], repeat=layer)) for layer in [1, 2, 3]])),
             'activation': ['tanh', 'relu'],
-            'learning_rate_init': [0.1, 0.01, 0.001]
+            'learning_rate_init': [0.1, 0.01, 0.001],
+            'solver': ['sgd', 'adam']
         }
 
         # Stratify cross validation
