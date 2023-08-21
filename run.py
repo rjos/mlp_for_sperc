@@ -70,7 +70,7 @@ def run(kwargs, n_processors):
         kfold = RepeatedStratifiedKFold(n_splits=folds, n_repeats=repeats, random_state=random_seed)
 
         # GridSearch
-        grid_search = GridSearchCV(MLPClassifier(learning_rate='adaptive', max_iter=500), parameters, scoring=make_scorer(custom_auc), cv=kfold, verbose=10, n_jobs=n_processors)
+        grid_search = GridSearchCV(MLPClassifier(learning_rate='adaptive', max_iter=500), parameters, scoring=make_scorer(custom_auc), cv=kfold, verbose=10, n_jobs=n_processors, return_train_score=True)
         grid_search.fit(X, y)
 
         # Results
