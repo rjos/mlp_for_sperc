@@ -62,15 +62,14 @@ def run(kwargs, n_processors):
         parameters = {
             'hidden_layer_sizes': list(itertools.chain.from_iterable([list(product([50, 100, 150, 200], repeat=layer)) for layer in [1, 2, 3]])),
             'activation': ['tanh', 'relu'],
-            'learning_rate_init': [0.1, 0.01, 0.001],
-            'solver': ['sgd', 'adam']
+            'learning_rate_init': [0.1, 0.01, 0.001]
         }
 
         # Stratify cross validation
         kfold = RepeatedStratifiedKFold(n_splits=folds, n_repeats=repeats, random_state=random_seed)
 
         # GridSearch
-        grid_search = GridSearchCV(MLPClassifier(learning_rate='adaptive', max_iter=500), parameters, scoring=make_scorer(custom_auc), cv=kfold, verbose=10, n_jobs=n_processors, return_train_score=True)
+        grid_search = GridSearchCV(MLPClassifier(learning_rate='adaptive', solver="adam", max_iter=500), parameters, scoring=make_scorer(custom_auc), cv=kfold, verbose=10, n_jobs=n_processors, return_train_score=True)
         grid_search.fit(X, y)
 
         # Results
@@ -84,8 +83,8 @@ if __name__ == "__main__":
 
     patch_sklearn()
 
-    n_fold = 10
-    n_repeat = 10
+    n_fold = 2
+    n_repeat = 1
     seed = 491994
 
     # number of processors in CPU
@@ -109,7 +108,7 @@ if __name__ == "__main__":
 
         if f'./results/{Path(dataset_path).name[:-4]}.csv' in already_results:
             continue
-
+        
         arg = {}
         arg['dataset'] = dataset_path
         arg['seed'] = seed
