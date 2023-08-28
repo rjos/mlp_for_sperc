@@ -83,8 +83,8 @@ if __name__ == "__main__":
 
     patch_sklearn()
 
-    n_fold = 2
-    n_repeat = 1
+    n_fold = 10
+    n_repeat = 10
     seed = 491994
 
     # number of processors in CPU
